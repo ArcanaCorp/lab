@@ -6,3 +6,5 @@ export * from "./lexer/token";
 export * from "./parser";
 
 export * from "./flowchart";
+
+export * from "./runtime";
