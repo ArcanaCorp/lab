@@ -1,5 +1,5 @@
 import { IconChevronLeft, IconDeviceFloppy, IconPlayerPause, IconPlayerPlay, IconReload, IconSettings } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { updateAlgorithm } from "../lib/algorithms";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +13,7 @@ export default function HeaderEditor ({ algorithm }) {
     const inputRef = useRef(null);
     
     function startEditingTitle() {
+        setTitle(algorithm.title || "");
         setEditingTitle(true);
     }
     
@@ -44,11 +45,6 @@ export default function HeaderEditor ({ algorithm }) {
             setEditingTitle(false);
         }
     }
-
-    useEffect(() => {
-        if (!algorithm) return;
-        setTitle(algorithm?.title)
-    }, [algorithm])
 
     return (
         <header className="w-full h bg-white border-b" style={{"--h": "60px"}}>

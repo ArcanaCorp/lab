@@ -20,19 +20,23 @@ export const EditorProvider = ({ children, slug }) => {
      */
 
     useEffect(() => {
-        if (!slug) {
+        const timer = setTimeout(() => {
+            if (!slug) {
+                setLoading(false);
+                return;
+            }
+
+            const data = getAlgorithmBySlug(slug);
+
+            if (data) {
+                setAlgorithm(data);
+                setTitle(data.title || "");
+            }
+
             setLoading(false);
-            return;
-        }
+        }, 0);
 
-        const data = getAlgorithmBySlug(slug);
-
-        if (data) {
-            setAlgorithm(data);
-            setTitle(data.title || "");
-        }
-
-        setLoading(false);
+        return () => clearTimeout(timer);
     }, [slug]);
 
 
