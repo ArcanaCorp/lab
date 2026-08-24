@@ -1,6 +1,7 @@
 import { tokenize, parse, analyze, type Program, type Diagnostic } from "@lab/algorithm-engine";
 
 export interface CodeAnalysis {
+    tokens: ReturnType<typeof tokenize>;
     program: Program | null;
     diagnostics: Diagnostic[];
 }
@@ -8,6 +9,7 @@ export interface CodeAnalysis {
 export function analyzeCode(source: string): CodeAnalysis {
     if (!source.trim()) {
         return {
+            tokens: [],
             program: null,
             diagnostics: [],
         };
@@ -19,11 +21,14 @@ export function analyzeCode(source: string): CodeAnalysis {
         const diagnostics = analyze(program);
 
         return {
+            tokens,
             program,
             diagnostics,
         };
+
     } catch (error) {
         return {
+            tokens: [],
             program: null,
             diagnostics: [
                 {

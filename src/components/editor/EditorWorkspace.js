@@ -25,6 +25,8 @@ export default function EditorWorkspace({ algorithm }) {
 
     const analysis = useMemo(() => analyzeCode(source), [source]);
 
+    console.log("EditorWorkspace render", { source, analysis, executionState });
+
     return (
         <main className="w-full h" style={{"--h": "calc(100dvh - 60px)", overflow: 'hidden'}}>
 
