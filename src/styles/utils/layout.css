@@ -1,0 +1,9 @@
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.w-screen { width: 100dvw; }
+.h-screen { height: 100dvh; }
+.w-fit { width: fit-content; }
+.h-fit { height: fit-content; }
+.w { width: var(--w); min-width: var(--mnw); max-width: var(--mxw); }
+.h { height: var(--h); min-height: var(--mnh); max-height: var(--mxh); }
+.square { width: var(--square); min-width: var(--square); height: var(--square); }

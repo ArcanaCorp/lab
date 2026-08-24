@@ -1,17 +1,16 @@
-import type { Program, Statement } from "../ast";
-
-import { Runtime } from "./runtime";
-
+import type { Program } from "../ast";
 import { ExecutionContext } from "./execution-context";
-
 import type { ExecutionState } from "./execution-state";
+
+import { ProgramFrame } from "./frames/program-frame";
+import type { ExecutionFrame } from "./frames/execution-frame";
 
 export class Execution {
 
     private readonly program: Program;
     private readonly context: ExecutionContext;
 
-    private statementIndex = 0;
+    private readonly frames: ExecutionFrame[] = [];
 
     private status: ExecutionState["status"] = "idle";
 
@@ -23,7 +22,12 @@ export class Execution {
     start(): ExecutionState {
         this.context.reset();
 
-        this.statementIndex = 0;
+        this.frames.length = 0;
+
+        this.frames.push(
+            new ProgramFrame(this.program)
+        );
+
         this.status = "paused";
 
         return this.getState();
@@ -34,25 +38,31 @@ export class Execution {
             this.start();
         }
 
-        if (this.status === "completed") {
+        if (
+            this.status === "completed" ||
+            this.status === "error"
+        ) {
             return this.getState();
         }
 
-        const statement = this.getCurrentStatement();
+        const frame = this.frames[
+            this.frames.length - 1
+        ];
 
-        if (!statement) {
+        if (!frame) {
             this.status = "completed";
-
             return this.getState();
         }
 
         this.status = "running";
 
-        this.executeStatement(statement);
+        frame.step(this.context);
 
-        this.statementIndex++;
+        if (frame.isComplete()) {
+            this.frames.pop();
+        }
 
-        if (this.statementIndex >= this.program.body.length) {
+        if (this.frames.length === 0) {
             this.status = "completed";
         } else {
             this.status = "paused";
@@ -66,7 +76,10 @@ export class Execution {
             this.start();
         }
 
-        while (this.status !== "completed") {
+        while (
+            this.status !== "completed" &&
+            this.status !== "error"
+        ) {
             this.step();
         }
 
@@ -76,7 +89,8 @@ export class Execution {
     reset(): ExecutionState {
         this.context.reset();
 
-        this.statementIndex = 0;
+        this.frames.length = 0;
+
         this.status = "idle";
 
         return this.getState();
@@ -85,36 +99,31 @@ export class Execution {
     getState(): ExecutionState {
         return {
             status: this.status,
+
             currentStatement:
-                this.status === "completed"
-                    ? null
-                    : this.statementIndex,
+                this.status === "idle"
+                    ? 0
+                    : this.status === "completed"
+                        ? null
+                        : this.getCurrentStatementIndex(),
+
             variables: this.context.getVariables(),
+
             output: this.context.getOutput()
         };
     }
 
-    private getCurrentStatement(): Statement | null {
-        return this.program.body[
-            this.statementIndex
-        ] ?? null;
-    }
+    private getCurrentStatementIndex(): number | null {
+        
+        const frame = this.frames[
+            this.frames.length - 1
+        ];
 
-    private executeStatement(statement: Statement): void {
-        const singleProgram: Program = {
-            ...this.program,
-            body: [statement]
-        };
+        if (frame instanceof ProgramFrame) {
+            return frame.currentIndex;
+        }
 
-        const runtime = new Runtime(
-            {
-                preserveState: true
-            },
-            this.context.environment,
-            this.context.output
-        );
-
-        runtime.execute(singleProgram);
+        return null;
     }
     
 }

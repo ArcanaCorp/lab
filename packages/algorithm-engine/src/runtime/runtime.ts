@@ -25,11 +25,7 @@ export class Runtime {
     private readonly input: RuntimeOptions["input"];
     private readonly preserveState: boolean;
 
-    constructor(
-        options: RuntimeOptions = {},
-        environment: Environment = new Environment(),
-        output: string[] = []
-    ) {
+    constructor(options: RuntimeOptions = {}, environment: Environment = new Environment(), output: string[] = []) {
         this.environment = environment;
         this.output = output;
         this.input = options.input;
@@ -43,7 +39,7 @@ export class Runtime {
         }
 
         for (const statement of program.body) {
-            this.executeStatement(statement);
+            this.executeStatementInternal(statement);
         }
 
         return {
@@ -52,7 +48,11 @@ export class Runtime {
         };
     }
 
-    private executeStatement(statement: Statement): void {
+    executeStatement(statement: Statement): void {
+        this.executeStatementInternal(statement);
+    }
+
+    private executeStatementInternal(statement: Statement) : void {
         switch (statement.type) {
             case "VariableDeclaration":
                 this.executeVariableDeclaration(statement);
@@ -249,7 +249,7 @@ export class Runtime {
 
     private executeStatements(statements: Statement[]): void {
         for (const statement of statements) {
-            this.executeStatement(statement);
+            this.executeStatementInternal(statement);
         }
     }
 
@@ -508,9 +508,8 @@ export class Runtime {
         };
     }
 
-    private async executeStatementAsync(
-        statement: Statement
-    ) : Promise<void> {
+    private async executeStatementAsync( statement: Statement ) : Promise<void> {
+        
         if (statement.type === "InputStatement") {
             await this.executeInputAsync(statement);
             return;
@@ -627,7 +626,7 @@ export class Runtime {
                 break;
 
             default:
-                this.executeStatement(statement);
+                this.executeStatementInternal(statement);
         }
     }
 

@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans-code);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: var(--color-dark);
+    font-size: var(--text-md);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+    background-color: var(--color-bg);
+}
+
+input, select, textarea {
+    outline: none;
+    border: none;
+}
+
+ul, li, ol {
+    list-style: none;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+
+.tabler-icon {
+    stroke-width: 1.2;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}

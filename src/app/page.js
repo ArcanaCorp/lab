@@ -1,69 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import NewAlgorithmButton from "../components/NewAlgorithmButton";
+import { IconBell, IconSettings } from "@tabler/icons-react";
+import Link from "next/link";
+import { getAlgorithms } from "../lib/algorithms";
+import { useEffect, useState } from "react";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+export default function Page () {
+
+    const [algorithms, setAlgorithms] = useState([]);
+
+    useEffect(() => {
+        function loadAlgorithms() {
+            setAlgorithms(getAlgorithms());
+        }
+
+        // Primera carga
+        loadAlgorithms();
+
+        // Cuando se cree/modifique un algoritmo
+        window.addEventListener(
+            "algorithms-updated",
+            loadAlgorithms
+        );
+
+        return () => {
+            window.removeEventListener(
+                "algorithms-updated",
+                loadAlgorithms
+            );
+        };
+    }, []);
+
+    return (
+        <>
+            <header className="w-full h bg-white" style={{"--h": "60px"}}>
+                <div className="w m-auto h-full flex items-center justify-between" style={{"--w": "90%"}}>
+                    <nav className="h-full flex items-center gap-md">
+                        <Link href={'/'} className="text-3xl text-dark fw-bold">AlgLab</Link>
+                        <Link href={'/'} className="text-dark">Dashboard</Link>
+                        <Link href={'/library'} className="text-dark">Library</Link>
+                        <Link href={'/templates'} className="text-dark">Templates</Link>
+                        <Link href={'/documentation'} className="text-dark">Documentation</Link>
+                    </nav>
+                    <div className="h-full flex items-center gap-md">
+                        <NewAlgorithmButton/>
+                        <button className="square center" style={{"--square": "40px"}}><IconBell/></button>
+                        <button className="square center" style={{"--square": "40px"}}><IconSettings/></button>
+                    </div>
+                </div>
+            </header>
+            <main className="w-full py-2xl">
+                <div className="w m-auto flex flex-col gap-xl" style={{"--w": "90%"}}>
+                    <div className="w-full flex items-center justify-between">
+                        <div>
+                            <h1 className="text-4xl">Mis Algoritmos</h1>
+                            <p className="text-gray">Gestiona, organiza y accede a todos tus proyectos de lógica de programación guardados localmente.</p>
+                        </div>
+                        <NewAlgorithmButton/>
+                    </div>
+                    <div className="w-full grid grid-cols-4 gap-md">
+                        <NewAlgorithmButton>Crear nuevo algoritmo</NewAlgorithmButton>
+                        {algorithms.map((algorithm) => (
+                            <Link key={algorithm.slug} href={`/editor/${algorithm.slug}`} className="bg-white p-lg border border-gray-200 rounded-md">
+                                <div className="flex flex-col gap-sm">
+                                    <h3 className="text-lg fw-semibold">{algorithm.title || "Sin título"}</h3>
+                                    <span className="text-sm text-gray">{algorithm.slug}</span>
+                                    <span className="text-sm text-gray">{new Date(algorithm.created).toLocaleString("es-PE")}</span>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </main>
+        </>
+    )
 }

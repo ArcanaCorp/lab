@@ -1,0 +1,129 @@
+:root {
+    /* =========================
+       Mariner
+       ========================= */
+
+    --mariner-50: #f0f7fe;
+    --mariner-100: #deecfb;
+    --mariner-200: #c4def9;
+    --mariner-300: #9cc9f4;
+    --mariner-400: #6cacee;
+    --mariner-500: #4a8ce7;
+    --mariner-600: #3570db;
+    --mariner-700: #2c5cc9;
+    --mariner-800: #2a4ba3;
+    --mariner-900: #274281;
+    --mariner-950: #1c2a4f;
+
+
+    /* =========================
+       Colors
+       ========================= */
+
+    --color-primary: var(--mariner-600);
+    --color-primary-light: var(--mariner-400);
+    --color-primary-dark: var(--mariner-800);
+
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-dark: #181818;
+    --color-bg: var(--mariner-50);
+
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #e5e5e5;
+    --color-gray-300: #d4d4d4;
+    --color-gray-400: #a3a3a3;
+    --color-gray-500: #888888;
+    --color-gray-600: #666666;
+    --color-gray-700: #444444;
+
+    --color-gray: var(--color-gray-500);
+
+
+    /* =========================
+       Typography
+       ========================= */
+
+    --text-xs: 0.75rem;     /* 12px */
+    --text-sm: 0.875rem;    /* 14px */
+    --text-md: 1rem;        /* 16px */
+    --text-lg: 1.125rem;    /* 18px */
+    --text-xl: 1.25rem;     /* 20px */
+    --text-2xl: 1.5rem;     /* 24px */
+    --text-3xl: 1.875rem;   /* 30px */
+    --text-4xl: 2.25rem;    /* 36px */
+
+
+    /* =========================
+       Font weights
+       ========================= */
+
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+
+
+    /* =========================
+       Line heights
+       ========================= */
+
+    --leading-tight: 1.1;
+    --leading-snug: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+
+
+    /* =========================
+       Spacing
+       ========================= */
+
+    --space-2xs: 0.125rem;  /* 2px */
+    --space-xs: 0.25rem;    /* 4px */
+    --space-sm: 0.5rem;     /* 8px */
+    --space-md: 0.75rem;    /* 12px */
+    --space-lg: 1rem;       /* 16px */
+    --space-xl: 1.5rem;     /* 24px */
+    --space-2xl: 2rem;      /* 32px */
+    --space-3xl: 3rem;      /* 48px */
+    --space-4xl: 4rem;      /* 64px */
+
+
+    /* =========================
+       Border radius
+       ========================= */
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+
+    /* =========================
+       Borders
+       ========================= */
+
+    --border-width: 1px;
+    --border-color: var(--color-gray-200);
+
+
+    /* =========================
+       Shadows
+       ========================= */
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+
+    /* =========================
+       Transitions
+       ========================= */
+
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+}

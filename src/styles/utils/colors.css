@@ -1,0 +1,171 @@
+/* =========================================
+   BACKGROUND
+   ========================================= */
+
+/* Mariner */
+
+.bg-mariner-50  { background-color: var(--mariner-50); }
+.bg-mariner-100 { background-color: var(--mariner-100); }
+.bg-mariner-200 { background-color: var(--mariner-200); }
+.bg-mariner-300 { background-color: var(--mariner-300); }
+.bg-mariner-400 { background-color: var(--mariner-400); }
+.bg-mariner-500 { background-color: var(--mariner-500); }
+.bg-mariner-600 { background-color: var(--mariner-600); }
+.bg-mariner-700 { background-color: var(--mariner-700); }
+.bg-mariner-800 { background-color: var(--mariner-800); }
+.bg-mariner-900 { background-color: var(--mariner-900); }
+.bg-mariner-950 { background-color: var(--mariner-950); }
+
+
+/* Gray */
+
+.bg-gray-100 { background-color: var(--color-gray-100); }
+.bg-gray-200 { background-color: var(--color-gray-200); }
+.bg-gray-300 { background-color: var(--color-gray-300); }
+.bg-gray-400 { background-color: var(--color-gray-400); }
+.bg-gray-500 { background-color: var(--color-gray-500); }
+.bg-gray-600 { background-color: var(--color-gray-600); }
+.bg-gray-700 { background-color: var(--color-gray-700); }
+
+
+/* Semantic */
+
+.bg-primary       { background-color: var(--color-primary); }
+.bg-primary-light { background-color: var(--color-primary-light); }
+.bg-primary-dark  { background-color: var(--color-primary-dark); }
+
+.bg-white { background-color: var(--color-white); }
+.bg-black { background-color: var(--color-black); }
+.bg-dark  { background-color: var(--color-dark); }
+.bg-gray  { background-color: var(--color-gray); }
+
+
+/* =========================================
+   TEXT COLOR
+   ========================================= */
+
+/* Mariner */
+
+.text-mariner-50  { color: var(--mariner-50); }
+.text-mariner-100 { color: var(--mariner-100); }
+.text-mariner-200 { color: var(--mariner-200); }
+.text-mariner-300 { color: var(--mariner-300); }
+.text-mariner-400 { color: var(--mariner-400); }
+.text-mariner-500 { color: var(--mariner-500); }
+.text-mariner-600 { color: var(--mariner-600); }
+.text-mariner-700 { color: var(--mariner-700); }
+.text-mariner-800 { color: var(--mariner-800); }
+.text-mariner-900 { color: var(--mariner-900); }
+.text-mariner-950 { color: var(--mariner-950); }
+
+
+/* Gray */
+
+.text-gray-100 { color: var(--color-gray-100); }
+.text-gray-200 { color: var(--color-gray-200); }
+.text-gray-300 { color: var(--color-gray-300); }
+.text-gray-400 { color: var(--color-gray-400); }
+.text-gray-500 { color: var(--color-gray-500); }
+.text-gray-600 { color: var(--color-gray-600); }
+.text-gray-700 { color: var(--color-gray-700); }
+
+
+/* Semantic */
+
+.text-primary       { color: var(--color-primary); }
+.text-primary-light { color: var(--color-primary-light); }
+.text-primary-dark  { color: var(--color-primary-dark); }
+
+.text-white { color: var(--color-white); }
+.text-black { color: var(--color-black); }
+.text-dark  { color: var(--color-dark); }
+.text-gray  { color: var(--color-gray); }
+
+
+/* =========================================
+   BORDER
+   ========================================= */
+
+/* Mariner */
+
+.border-mariner-50  { border-color: var(--mariner-50); }
+.border-mariner-100 { border-color: var(--mariner-100); }
+.border-mariner-200 { border-color: var(--mariner-200); }
+.border-mariner-300 { border-color: var(--mariner-300); }
+.border-mariner-400 { border-color: var(--mariner-400); }
+.border-mariner-500 { border-color: var(--mariner-500); }
+.border-mariner-600 { border-color: var(--mariner-600); }
+.border-mariner-700 { border-color: var(--mariner-700); }
+.border-mariner-800 { border-color: var(--mariner-800); }
+.border-mariner-900 { border-color: var(--mariner-900); }
+.border-mariner-950 { border-color: var(--mariner-950); }
+
+
+/* Gray */
+
+.border-gray-100 { border-color: var(--color-gray-100); }
+.border-gray-200 { border-color: var(--color-gray-200); }
+.border-gray-300 { border-color: var(--color-gray-300); }
+.border-gray-400 { border-color: var(--color-gray-400); }
+.border-gray-500 { border-color: var(--color-gray-500); }
+.border-gray-600 { border-color: var(--color-gray-600); }
+.border-gray-700 { border-color: var(--color-gray-700); }
+
+
+/* Semantic */
+
+.border-primary       { border-color: var(--color-primary); }
+.border-primary-light { border-color: var(--color-primary-light); }
+.border-primary-dark  { border-color: var(--color-primary-dark); }
+
+.border-white { border-color: var(--color-white); }
+.border-black { border-color: var(--color-black); }
+.border-dark  { border-color: var(--color-dark); }
+.border-gray  { border-color: var(--color-gray); }
+
+/* =========================================
+   OUTLINE
+   ========================================= */
+
+.outline-primary { outline-color: var(--color-primary); }
+.outline-primary-light { outline-color: var(--color-primary-light); }
+.outline-primary-dark { outline-color: var(--color-primary-dark); }
+.outline-white { outline-color: var(--color-white); }
+.outline-black { outline-color: var(--color-black); }
+.outline-dark { outline-color: var(--color-dark); }
+.outline-gray { outline-color: var(--color-gray); }
+
+/* =========================================
+   OUTLINE WIDTH
+   ========================================= */
+
+.outline-0 { outline-width: 0; }
+.outline-1 { outline-width: 1px; }
+.outline-2 { outline-width: 2px; }
+.outline-4 { outline-width: 4px; }
+
+/* =========================================
+   OPACITY
+   ========================================= */
+
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* =========================================
+   SVG
+   ========================================= */
+
+.fill-primary { fill: var(--color-primary); }
+.fill-white { fill: var(--color-white); }
+.fill-black { fill: var(--color-black); }
+.fill-dark { fill: var(--color-dark); }
+.fill-gray { fill: var(--color-gray); }
+
+.stroke-primary { stroke: var(--color-primary); }
+.stroke-white { stroke: var(--color-white); }
+.stroke-black { stroke: var(--color-black); }
+.stroke-dark { stroke: var(--color-dark); }
+.stroke-gray { stroke: var(--color-gray); }

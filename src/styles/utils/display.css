@@ -1,0 +1,150 @@
+/* =========================
+📺 DISPLAY
+========================= */
+.block { display: block; }
+.inline { display: inline; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+.none { display: none; }
+.center { display: grid; place-items: center; }
+
+/* =========================
+📦 FLEX - DIRECCIÓN
+========================= */
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+/* =========================
+📦 FLEX - JUSTIFY
+========================= */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* =========================
+📦 FLEX - ALIGN
+========================= */
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+.items-baseline { align-items: baseline; }
+
+/* =========================
+📦 FLEX - CONTENT
+========================= */
+.content-start { align-content: flex-start; }
+.content-center { align-content: center; }
+.content-end { align-content: flex-end; }
+.content-between { align-content: space-between; }
+
+/* =========================
+📦 FLEX - WRAP
+========================= */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* =========================
+📦 FLEX - GROW / SHRINK
+========================= */
+.flex-1 { flex: 1; }
+.flex-auto { flex: auto; }
+.flex-initial { flex: initial; }
+.flex-none { flex: none; }
+
+/* =========================
+📦 FLEX - GAP
+========================= */
+.gap-2xs { gap: var(--space-2xs); }
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+.gap-2xl { gap: var(--space-2xl); }
+.gap-3xl { gap: var(--space-2xl); }
+.gap-4xl { gap: var(--space-4xl); }
+
+/* =========================
+🔲 GRID - TEMPLATE
+========================= */
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* =========================
+🔲 GRID - TEMPLATE
+========================= */
+.rows-1 { grid-template-rows: repeat(1, 1fr); }
+.rows-2 { grid-template-rows: repeat(2, 1fr); }
+.rows-3 { grid-template-rows: repeat(3, 1fr); }
+.rows-4 { grid-template-rows: repeat(4, 1fr); }
+.rows-5 { grid-template-rows: repeat(5, 1fr); }
+.rows-6 { grid-template-rows: repeat(6, 1fr); }
+
+/* =========================
+🔲 GRID - AUTO FIT (RESPONSIVE)
+========================= */
+.grid-auto-sm { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.grid-auto-md { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid-auto-lg { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* =========================
+🔲 GRID - GAP
+========================= */
+.grid-gap-2xs { gap: var(--space-2xs); }
+.grid-gap-xs { gap: var(--space-xs); }
+.grid-gap-sm { gap: var(--space-sm); }
+.grid-gap-md { gap: var(--space-md); }
+.grid-gap-lg { gap: var(--space-lg); }
+.grid-gap-xl { gap: var(--space-xl); }
+
+/* =========================
+📐 ALIGN SELF
+========================= */
+.self-start { align-self: flex-start; }
+.self-center { align-self: center; }
+.self-end { align-self: flex-end; }
+.self-stretch { align-self: stretch; }
+
+/* =========================
+📐 JUSTIFY SELF
+========================= */
+.justify-self-start { justify-self: start; }
+.justify-self-center { justify-self: center; }
+.justify-self-end { justify-self: end; }
+.justify-self-stretch { justify-self: stretch; }
+
+/* =========================
+📐 OVERFLOW
+========================= */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+
+.overflow-scroll::-webkit-scrollbar { display: none; }
+
+/* =========================
+🧩 POSITION (BÁSICO)
+========================= */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+.inset { inset: 0; }
+.top-0 { top: 0; }
+.right-0 {top: 0;}
+
+.pointer { cursor: pointer; }
