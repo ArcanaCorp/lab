@@ -16,6 +16,11 @@ export const EditorProvider = ({ children, slug }) => {
     /*
      * =========================
      * LOAD ALGORITHM
+     * Algoritmo Hola
+
+ Escribir "Hola mundo"
+
+FinAlgoritmo
      * =========================
      */
 

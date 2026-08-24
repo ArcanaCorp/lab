@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { updateAlgorithm } from "../lib/algorithms";
 import { useRouter } from "next/navigation";
 
-export default function HeaderEditor ({ algorithm }) {
+export default function HeaderEditor ({ algorithm, onRun }) {
 
     const router = useRouter();
 
@@ -69,7 +69,9 @@ export default function HeaderEditor ({ algorithm }) {
                     <button className="square center rounded-sm bg-gray-100" style={{"--square": "40px"}}><IconDeviceFloppy/></button>
                     <button className="square center rounded-sm bg-gray-100" style={{"--square": "40px"}}><IconSettings/></button>
                     <button className="h px-md bg-gray-100 rounded-sm flex items-center gap-sm" style={{"--h": "40px"}}><IconPlayerPause/> Pausar</button>
-                    <button className="h px-md bg-primary rounded-sm text-white flex items-center gap-sm" style={{"--h": "40px"}}><IconPlayerPlay/> Run</button>
+                    <button className="h px-md bg-primary rounded-sm text-white flex items-center gap-sm" style={{"--h": "40px"}} onClick={onRun}>
+                        <IconPlayerPlay/> Run
+                    </button>
                 </div>
             </div>
         </header>
