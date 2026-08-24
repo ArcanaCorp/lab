@@ -34,7 +34,7 @@ describe("Parser", () => {
         expect(program.body[0]).toMatchObject({
             type: "VariableDeclaration",
             name: "edad",
-            dataType: "Entero"
+            dataType: "Integer"
         });
     });
 
@@ -287,9 +287,9 @@ describe("Parser", () => {
 
         const statement = program.body[0];
 
-        expect(statement.type).toBe("ForStatement");
+        expect(statement?.type).toBe("ForStatement");
 
-        if (statement.type !== "ForStatement") {
+        if (!statement || statement.type !== "ForStatement") {
             return;
         }
 
@@ -312,9 +312,7 @@ describe("Parser", () => {
 
         expect(statement.body).toHaveLength(1);
 
-        expect(statement.body[0].type).toBe(
-            "OutputStatement"
-        );
+        expect(statement.body[0]?.type).toBe("OutputStatement");
     });
 
     it("parses for statement with explicit step", () => {
@@ -332,9 +330,9 @@ describe("Parser", () => {
 
         const statement = program.body[0];
 
-        expect(statement.type).toBe("ForStatement");
+        expect(statement?.type).toBe("ForStatement");
 
-        if (statement.type !== "ForStatement") {
+        if (!statement || statement.type !== "ForStatement") {
             return;
         }
 
@@ -365,9 +363,9 @@ describe("Parser", () => {
 
         const forStatement = program.body[0];
 
-        expect(forStatement.type).toBe("ForStatement");
+        expect(forStatement?.type).toBe("ForStatement");
 
-        if (forStatement.type !== "ForStatement") {
+        if (!forStatement || forStatement.type !== "ForStatement") {
             return;
         }
 
@@ -375,7 +373,7 @@ describe("Parser", () => {
 
         const ifStatement = forStatement.body[0];
 
-        expect(ifStatement.type).toBe("IfStatement");
+        expect(ifStatement?.type).toBe("IfStatement");
     });
 
     it("parses nested for statements", () => {
@@ -397,9 +395,9 @@ describe("Parser", () => {
 
         const outerFor = program.body[0];
 
-        expect(outerFor.type).toBe("ForStatement");
+        expect(outerFor?.type).toBe("ForStatement");
 
-        if (outerFor.type !== "ForStatement") {
+        if (!outerFor || outerFor.type !== "ForStatement") {
             return;
         }
 
@@ -407,9 +405,9 @@ describe("Parser", () => {
 
         const innerFor = outerFor.body[0];
 
-        expect(innerFor.type).toBe("ForStatement");
+        expect(innerFor?.type).toBe("ForStatement");
 
-        if (innerFor.type !== "ForStatement") {
+        if (!innerFor || innerFor.type !== "ForStatement") {
             return;
         }
 

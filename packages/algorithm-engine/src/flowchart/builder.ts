@@ -119,7 +119,8 @@ export function buildFlowchart( program: Program ) : Flowchart {
                 return buildForStatement(statement, context, buildStatement);
 
             default:
-                throw new Error(`Flowchart node not implemented: ${statement.type}`);
+                const unreachable: never = statement;
+                throw new Error(`Flowchart node not implemented: ${String(unreachable)}`);
         }
     }
 

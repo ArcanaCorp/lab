@@ -1,11 +1,12 @@
 import type { BaseNode } from "./nodes";
+import type { PrimitiveType } from "./types";
 
 export type Expression = | LiteralExpression | IdentifierExpression | BinaryExpression | UnaryExpression;
 
 export interface LiteralExpression extends BaseNode {
     type: "LiteralExpression";
     value: number | string | boolean;
-    dataType: "Integer" | "Real" | "Caracter" | "Logico";
+    dataType: PrimitiveType
 }
 
 export interface IdentifierExpression extends BaseNode {

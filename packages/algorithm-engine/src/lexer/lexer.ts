@@ -3,6 +3,7 @@ import type { Token, TokenType } from "./token";
 import type { SourceLocation, SourcePosition } from "../ast";
 
 export function tokenize(source: string): Token[] {
+    
     const tokens: Token[] = [];
 
     let current = 0;
@@ -18,12 +19,13 @@ export function tokenize(source: string): Token[] {
     }
 
     function advance(): string {
-        const char = source[current];
+
+        const char = source.charAt(current);
 
         current++;
         column++;
 
-        return char ?? "";
+        return char;
     }
 
     function location(start: SourcePosition, end: SourcePosition ) : SourceLocation {
@@ -43,7 +45,8 @@ export function tokenize(source: string): Token[] {
     }
 
     while (current < source.length) {
-        const char = source[current];
+
+        const char = source.charAt(current);
 
         if (char === " " || char === "\t" || char === "\r") {
             advance();
@@ -73,7 +76,7 @@ export function tokenize(source: string): Token[] {
         if (/[A-Za-z_]/.test(char)) {
             let value = "";
 
-            while (current < source.length && /[A-Za-z0-9_]/.test(source[current])) {
+            while (current < source.length && /[A-Za-z0-9_]/.test(source.charAt(current))) {
                 value += advance();
             }
 
@@ -94,14 +97,14 @@ export function tokenize(source: string): Token[] {
         if (/[0-9]/.test(char)) {
             let value = "";
 
-            while (current < source.length && /[0-9]/.test(source[current])) {
+            while (current < source.length && /[0-9]/.test(source.charAt(current))) {
                 value += advance();
             }
 
-            if (source[current] === ".") {
+            if (source.charAt(current) === ".") {
                 value += advance();
 
-                while (current < source.length && /[0-9]/.test(source[current])) {
+                while (current < source.length && /[0-9]/.test(source.charAt(current))) {
                 value += advance();
                 }
             }
@@ -117,7 +120,7 @@ export function tokenize(source: string): Token[] {
 
             let value = "";
 
-            while (current < source.length && source[current] !== '"') {
+            while (current < source.length && source.charAt(current) !== '"') {
                 value += advance();
             }
 
@@ -170,13 +173,13 @@ export function tokenize(source: string): Token[] {
             case "<":
                 advance();
 
-                if (source[current] === "=") {
+                if (source.charAt(current) === "=") {
                     advance();
                     addToken("LESS_EQUAL", "<=", start);
-                } else if (source[current] === ">") {
+                } else if (source.charAt(current) === ">") {
                     advance();
                     addToken("NOT_EQUAL", "<>", start);
-                } else if (source[current] === "-") {
+                } else if (source.charAt(current) === "-") {
                     advance();
                     addToken("ASSIGN", "<-", start);
                 } else {
@@ -188,7 +191,7 @@ export function tokenize(source: string): Token[] {
             case ">":
                 advance();
 
-                if (source[current] === "=") {
+                if (source.charAt(current) === "=") {
                     advance();
                     addToken("GREATER_EQUAL", ">=", start);
                 } else {

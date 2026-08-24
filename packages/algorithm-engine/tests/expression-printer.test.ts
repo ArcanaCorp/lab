@@ -14,7 +14,7 @@ describe("Expression Printer", () => {
 
         const statement = program.body[0];
 
-        if (statement.type !== "OutputStatement") {
+        if (!statement || statement.type !== "OutputStatement") {
             throw new Error("Expected OutputStatement");
         }
 

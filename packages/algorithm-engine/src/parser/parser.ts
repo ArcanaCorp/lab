@@ -1,4 +1,4 @@
-import type { Program, Statement, Token, TokenType, SourceLocation, Expression, BinaryOperator } from "../";
+import type { Program, Statement, Token, TokenType, SourceLocation, Expression, BinaryOperator, PrimitiveType } from "../";
 
 export class Parser {
     private current = 0;
@@ -484,10 +484,10 @@ export class Parser {
         throw this.error( this.peek(), `Se esperaba una expresión, pero se encontró '${this.peek().lexeme}'.`);
     }
 
-    private mapType( type: TokenType ) : "Entero" | "Real" | "Caracter" | "Logico" {
+    private mapType( type: TokenType ) : PrimitiveType {
         switch (type) {
             case "ENTERO":
-                return "Entero";
+                return "Integer";
 
             case "REAL":
                 return "Real";

@@ -19,9 +19,7 @@ export function expressionToString(expression: Expression): string {
             ].join(" ");
 
         default:
-            throw new Error(
-                `Expression printer not implemented: ${expression.type}`
-            );
+            throw new Error("Expression printer not implemented");
     }
 }
 

@@ -44,15 +44,31 @@ export class SemanticAnalyzer {
                 break;
 
             case "IfStatement":
-                // Lo implementaremos después.
+                this.analyzeExpression(statement.condition);
+
+                for (const nestedStatement of statement.thenBranch) {
+                    this.analyzeStatement(nestedStatement);
+                }
+
+                for (const nestedStatement of statement.elseBranch) {
+                    this.analyzeStatement(nestedStatement);
+                }
+
                 break;
 
             case "WhileStatement":
-                // Lo implementaremos después.
+                this.analyzeExpression(statement.condition);
                 break;
 
             case "ForStatement":
-                // Lo implementaremos después.
+                this.analyzeExpression(statement.start);
+                this.analyzeExpression(statement.end);
+                this.analyzeExpression(statement.step);
+
+                for (const nestedStatement of statement.body) {
+                    this.analyzeStatement(nestedStatement);
+                }
+
                 break;
         }
     }
@@ -128,10 +144,23 @@ export class SemanticAnalyzer {
                 break;
             }
 
+            case "BinaryExpression":
+                this.analyzeExpression(expression.left);
+                this.analyzeExpression(expression.right);
+                break;
+
+            case "UnaryExpression":
+                this.analyzeExpression(expression.operand);
+                break;
+
+            case "LiteralExpression":
+                break;
+
             default:
                 break;
         }
     }
+
 }
 
 export function analyze(program: Program): Diagnostic[] {

@@ -1,6 +1,5 @@
 import type { BaseNode } from "./nodes";
-
-export type PrimitiveType = | "Integer" | "Real" | "String" | "Boolean";
+import type { PrimitiveType } from "./types";
 
 export interface VariableDeclaration extends BaseNode {
     type: "VariableDeclaration";

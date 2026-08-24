@@ -1,7 +1,6 @@
 import type { Expression } from "./expressions";
 import type { BaseNode } from "./nodes";
-
-export type PrimitiveType = | "Entero" | "Real" | "Caracter" | "Logico";
+import type { PrimitiveType } from "./types";
 
 export interface Program extends BaseNode {
     type: "Program";

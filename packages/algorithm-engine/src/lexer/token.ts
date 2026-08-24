@@ -59,6 +59,9 @@ export type TokenType =
     | "LEFT_PAREN"
     | "RIGHT_PAREN"
 
+    | "CON"
+    | "PASO"
+
 ;
 
 export interface Token {

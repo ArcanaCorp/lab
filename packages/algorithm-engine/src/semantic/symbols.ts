@@ -1,8 +1,8 @@
-import type { DataType } from "../ast";
+import type { PrimitiveType } from "../ast/types";
 
 export interface Symbol {
     name: string;
-    dataType: DataType;
+    dataType: PrimitiveType;
     location: {
         start: {
             line: number;
