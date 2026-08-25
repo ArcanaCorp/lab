@@ -2,6 +2,7 @@ import type { Statement } from "../ast";
 
 import { Environment } from "./environment";
 import { Runtime } from "./runtime";
+import type { Expression } from "../ast";
 
 import type { RuntimeValue } from "./value";
 
@@ -14,8 +15,6 @@ export class ExecutionContext {
 
     private readonly runtime: Runtime;
 
-    private readonly inputProvider: InputProvider | undefined;
-
     private waitingForInput = false;
     private requestedVariable: string | null = null;
 
@@ -26,8 +25,6 @@ export class ExecutionContext {
 
         this.environment = new Environment();
         this.output = [];
-
-        this.inputProvider = input;
 
         const options = input
             ? {
@@ -56,13 +53,7 @@ export class ExecutionContext {
 
     executeStatement(statement: Statement): void {
         if (statement.type === "InputStatement") {
-
-            if (!this.inputProvider) {
-                this.requestInput(statement.variable);
-                return;
-            }
-
-            this.runtime.executeStatement(statement);
+            this.requestInput(statement.variable);
             return;
         }
 
@@ -170,9 +161,7 @@ export class ExecutionContext {
         );
 
         this.waitingForInput = false;
-
         this.inputCompleted = true;
-
         this.requestedVariable = null;
     }
 
@@ -192,6 +181,14 @@ export class ExecutionContext {
 
     getOutput(): string[] {
         return [...this.output];
+    }
+
+    evaluateExpression(expression: Expression): RuntimeValue {
+        return this.runtime.evaluateExpressionPublic(expression);
+    }
+
+    isTruthy(value: RuntimeValue): boolean {
+        return this.runtime.isTruthyPublic(value);
     }
 
 }

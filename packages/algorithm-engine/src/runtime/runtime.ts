@@ -634,4 +634,14 @@ export class Runtime {
         }
     }
 
+    evaluateExpressionPublic(
+        expression: Expression
+    ) : RuntimeValue {
+        return this.evaluateExpression(expression);
+    }
+
+    isTruthyPublic(value: RuntimeValue): boolean {
+        return this.isTruthy(value);
+    }
+
 }

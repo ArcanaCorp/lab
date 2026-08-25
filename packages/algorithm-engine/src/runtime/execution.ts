@@ -1,7 +1,6 @@
 import type { Program } from "../ast";
-import { ExecutionContext } from "./execution-context";
+import { ExecutionContext, type InputProvider } from "./execution-context";
 import type { ExecutionState } from "./execution-state";
-import type { RuntimeValue } from "./value";
 
 import { ProgramFrame } from "./frames/program-frame";
 import type { ExecutionFrame } from "./frames/execution-frame";
@@ -15,11 +14,11 @@ export class Execution {
 
     private status: ExecutionState["status"] = "idle";
 
-    private inputCompleted = false;
+    //private inputCompleted = false;
 
-    constructor(program: Program) {
+    constructor(program: Program, input?: InputProvider) {
         this.program = program;
-        this.context = new ExecutionContext();
+        this.context = new ExecutionContext(input);
     }
 
     start(): ExecutionState {
@@ -151,16 +150,6 @@ export class Execution {
         this.status = "paused";
 
         return this.getState();
-    }
-
-    consumeInputCompleted(): boolean {
-        if (!this.inputCompleted) {
-            return false;
-        }
-
-        this.inputCompleted = false;
-
-        return true;
     }
 
 }

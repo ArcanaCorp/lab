@@ -37,9 +37,6 @@ export default function Page () {
                 <div className="w m-auto h-full flex items-center justify-between" style={{"--w": "90%"}}>
                     <nav className="h-full flex items-center gap-md">
                         <Link href={'/'} className="text-3xl text-dark fw-bold">AlgLab</Link>
-                        <Link href={'/'} className="text-dark">Dashboard</Link>
-                        <Link href={'/library'} className="text-dark">Library</Link>
-                        <Link href={'/templates'} className="text-dark">Templates</Link>
                         <Link href={'/documentation'} className="text-dark">Documentation</Link>
                     </nav>
                     <div className="h-full flex items-center gap-md">
