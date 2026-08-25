@@ -15,6 +15,7 @@ export const EditorProvider = ({ children, slug }) => {
 
     const [activeView, setActiveView] = useState("pseudocode");
     const [activePanel, setActivePanel] = useState("terminal");
+    const [minimized, setMinimized] = useState(false);
 
     useEffect(() => {
         const load = async () => {
@@ -150,6 +151,8 @@ export const EditorProvider = ({ children, slug }) => {
 
     }, [algorithm]);
 
+    const toogleMinimized = () => setMinimized(!minimized)
+
 
     /*
      * =========================
@@ -180,7 +183,9 @@ export const EditorProvider = ({ children, slug }) => {
         activeView,
         setActiveView,
         activePanel,
-        setActivePanel
+        setActivePanel,
+        minimized,
+        toogleMinimized
 
     };
 

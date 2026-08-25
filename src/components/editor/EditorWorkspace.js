@@ -11,7 +11,7 @@ import { buildFlowchart } from "../../../packages/algorithm-engine";
 
 export default function EditorWorkspace({ source, setSource, executionState, onInput }) {
 
-    const { activeView, activePanel, setActivePanel } = useEditor();
+    const { activeView, activePanel, setActivePanel, minimized } = useEditor();
 
     const analysis = useMemo(() => analyzeCode(source), [source]);
 
@@ -36,7 +36,7 @@ export default function EditorWorkspace({ source, setSource, executionState, onI
     return (
         <main className="w-full h" style={{"--h": "calc(100dvh - 60px)", overflow: 'hidden'}}>
 
-            <div className="w-full flex p-md" style={{height: "calc(100% - 300px)"}}>
+            <div className="w-full flex p-md" style={{height: `calc(100% - ${minimized ? '30px' : '300px'})`}}>
 
                 {activeView === "pseudocode" && (
                     <PseudocodeEditor value={source} onChange={setSource} executionState={executionState} />
