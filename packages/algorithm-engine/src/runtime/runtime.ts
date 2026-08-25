@@ -87,10 +87,13 @@ export class Runtime {
         }
     }
 
-    private executeVariableDeclaration( statement: VariableDeclaration ) : void {
+    private executeVariableDeclaration(
+        statement: VariableDeclaration
+    ) : void {
         this.environment.define(
             statement.name,
-            this.defaultValue(statement.dataType)
+            this.defaultValue(statement.dataType),
+            statement.dataType
         );
     }
 
@@ -203,7 +206,8 @@ export class Runtime {
         if (!this.environment.has(statement.variable)) {
             this.environment.define(
                 statement.variable,
-                start
+                start,
+                "Integer"
             );
         } else {
             this.environment.set(

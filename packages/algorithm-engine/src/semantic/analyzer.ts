@@ -60,7 +60,28 @@ export class SemanticAnalyzer {
                 this.analyzeExpression(statement.condition);
                 break;
 
-            case "ForStatement":
+            case "ForStatement": {
+                const symbol = this.symbols.resolve(statement.variable);
+
+                if (!symbol) {
+                    this.diagnostics.push({
+                        severity: "error",
+                        code: "SEM002",
+                        message: `La variable '${statement.variable}' no ha sido declarada.`,
+                        location: statement.location
+                    });
+                } else if (
+                    symbol.dataType !== "Integer" &&
+                    symbol.dataType !== "Real"
+                ) {
+                    this.diagnostics.push({
+                        severity: "error",
+                        code: "SEM003",
+                        message: `La variable de control '${statement.variable}' debe ser de tipo numérico.`,
+                        location: statement.location
+                    });
+                }
+
                 this.analyzeExpression(statement.start);
                 this.analyzeExpression(statement.end);
                 this.analyzeExpression(statement.step);
@@ -70,6 +91,7 @@ export class SemanticAnalyzer {
                 }
 
                 break;
+            }
         }
     }
 

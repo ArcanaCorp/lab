@@ -32,5 +32,8 @@ export const KEYWORDS: Record<string, TokenType> = {
 
     Y: "AND",
     O: "OR",
-    NO: "NOT"
+    NO: "NOT",
+
+    FALSO: "FALSO",
+    VERDADERO: "VERDADERO",
 };

@@ -1,6 +1,7 @@
 import type { Program } from "../ast";
 import { ExecutionContext } from "./execution-context";
 import type { ExecutionState } from "./execution-state";
+import type { RuntimeValue } from "./value";
 
 import { ProgramFrame } from "./frames/program-frame";
 import type { ExecutionFrame } from "./frames/execution-frame";
@@ -13,6 +14,8 @@ export class Execution {
     private readonly frames: ExecutionFrame[] = [];
 
     private status: ExecutionState["status"] = "idle";
+
+    private inputCompleted = false;
 
     constructor(program: Program) {
         this.program = program;
@@ -58,6 +61,12 @@ export class Execution {
 
         frame.step(this.context);
 
+        if (this.context.isWaitingForInput()) {
+            this.status = "waiting-input";
+
+            return this.getState();
+        }
+
         if (frame.isComplete()) {
             this.frames.pop();
         }
@@ -78,7 +87,8 @@ export class Execution {
 
         while (
             this.status !== "completed" &&
-            this.status !== "error"
+            this.status !== "error" &&
+            this.status !== "waiting-input"
         ) {
             this.step();
         }
@@ -97,7 +107,8 @@ export class Execution {
     }
 
     getState(): ExecutionState {
-        return {
+
+        const state: ExecutionState = {
             status: this.status,
 
             currentStatement:
@@ -111,6 +122,14 @@ export class Execution {
 
             output: this.context.getOutput()
         };
+
+        if (this.context.isWaitingForInput()) {
+            state.inputRequest = {
+                variable: this.context.getInputVariable()!
+            };
+        }
+
+        return state;
     }
 
     private getCurrentStatementIndex(): number | null {
@@ -126,4 +145,22 @@ export class Execution {
         return null;
     }
     
+    provideInput(value: string): ExecutionState {
+        this.context.provideInput(value);
+
+        this.status = "paused";
+
+        return this.getState();
+    }
+
+    consumeInputCompleted(): boolean {
+        if (!this.inputCompleted) {
+            return false;
+        }
+
+        this.inputCompleted = false;
+
+        return true;
+    }
+
 }

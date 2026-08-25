@@ -292,7 +292,13 @@ export class Parser {
             );
 
             stepExpression = this.expression();
+
+        } else if (this.match("PASO")) {
+
+            stepExpression = this.expression();
+
         } else {
+
             stepExpression = {
                 type: "LiteralExpression",
                 id: `literal_${this.current}`,
@@ -305,10 +311,7 @@ export class Parser {
             };
         }
 
-        this.consume(
-            "HACER",
-            "Se esperaba 'Hacer' después de la configuración del ciclo."
-        );
+        this.consume("HACER", "Se esperaba 'Hacer' después de la configuración del ciclo.");
 
         this.skipNewlines();
 
@@ -460,6 +463,30 @@ export class Parser {
                 id: `literal_${this.current}`,
                 value: token.value as string,
                 dataType: "Caracter",
+                location: token.location
+            };
+        }
+
+        if (this.match("FALSO")) {
+            const token = this.previous();
+
+            return {
+                type: "LiteralExpression",
+                id: `literal_${this.current}`,
+                value: false,
+                dataType: "Logico",
+                location: token.location
+            };
+        }
+
+        if (this.match("VERDADERO")) {
+            const token = this.previous();
+
+            return {
+                type: "LiteralExpression",
+                id: `literal_${this.current}`,
+                value: true,
+                dataType: "Logico",
                 location: token.location
             };
         }

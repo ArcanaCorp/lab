@@ -1,48 +1,30 @@
+'use client'
+import { useState } from "react";
+
 export default function BottomPanel({
     activePanel,
     setActivePanel,
     executionState,
-    diagnostics = []
+    diagnostics = [],
+    onInput
 }) {
+
+    const [inputValue, setInputValue] = useState("");
+
     return (
-        <div
-            className="w-full h"
-            style={{ "--h": "300px" }}
-        >
-            <ul
-                className="w-full h flex items-center px-md gap-md text-sm border-y border-solid border-gray"
-                style={{ "--h": "30px" }}
-            >
-                <li
-                    className="pointer"
-                    onClick={() => setActivePanel("terminal")}
-                >
-                    Terminal
-                </li>
+        <div className="w-full h" style={{ "--h": "300px" }}>
 
-                <li
-                    className="pointer"
-                    onClick={() => setActivePanel("errors")}
-                >
-                    Errores
-                </li>
-
-                <li
-                    className="pointer"
-                    onClick={() => setActivePanel("console")}
-                >
-                    Console
-                </li>
+            <ul className="w-full h flex items-center px-md gap-md text-sm border-y border-solid border-gray" style={{ "--h": "30px" }} >
+                <li className={`pointer px-sm rounded-sm ${activePanel === "terminal" ? "bg-mariner-500 text-white" : "hover:bg-gray-200"}`} onClick={() => setActivePanel("terminal")}>Terminal</li>
+                <li className={`pointer px-sm rounded-sm ${activePanel === "errors" ? "bg-mariner-500 text-white" : "hover:bg-gray-200"}`} onClick={() => setActivePanel("errors")}>Errores</li>
+                <li className={`pointer px-sm rounded-sm ${activePanel === "console" ? "bg-mariner-500 text-white" : "hover:bg-gray-200"}`} onClick={() => setActivePanel("console")}>Console</li>
             </ul>
 
-            <div
-                className="w-full h-full bg-white p-md"
-                role="status"
-                aria-live="polite"
-            >
+            <div className="w-full h bg-white p-md" style={{ "--h": "270px", "overflowY": "auto" }} role="status" aria-live="polite" >
 
                 {activePanel === "terminal" && (
-                    <div>
+                    <div className="flex flex-col gap-md">
+
                         {executionState?.output?.length > 0 ? (
                             executionState.output.map((line, index) => (
                                 <div key={index}>
@@ -54,6 +36,48 @@ export default function BottomPanel({
                                 Sin salida.
                             </p>
                         )}
+
+                        {executionState?.status === "waiting-input" && (
+                            <form
+                                onSubmit={(event) => {
+                                    event.preventDefault();
+
+                                    if (!inputValue.trim()) {
+                                        return;
+                                    }
+
+                                    onInput(inputValue);
+
+                                    setInputValue("");
+                                }}
+                                className="flex items-center gap-sm"
+                            >
+
+                                <span>
+                                    {executionState.inputRequest?.variable}:
+                                </span>
+
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(event) =>
+                                        setInputValue(event.target.value)
+                                    }
+                                    className="border border-solid border-gray px-sm"
+                                    placeholder="Ingresa un valor"
+                                />
+
+                                <button
+                                    type="submit"
+                                    className="px-md bg-primary text-white rounded-sm"
+                                >
+                                    Ingresar
+                                </button>
+
+                            </form>
+                        )}
+
                     </div>
                 )}
 

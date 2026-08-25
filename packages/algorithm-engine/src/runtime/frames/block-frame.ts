@@ -18,6 +18,11 @@ export class BlockFrame implements ExecutionFrame {
             return false;
         }
 
+        if (context.consumeInputCompleted()) {
+            this.index++;
+            return true;
+        }
+
         const statement = this.statements[this.index];
 
         if (!statement) {
@@ -25,6 +30,10 @@ export class BlockFrame implements ExecutionFrame {
         }
 
         context.executeStatement(statement);
+
+        if (context.isWaitingForInput()) {
+            return false;
+        }
 
         this.index++;
 

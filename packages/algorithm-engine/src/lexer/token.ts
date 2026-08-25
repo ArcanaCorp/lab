@@ -62,6 +62,9 @@ export type TokenType =
     | "CON"
     | "PASO"
 
+    | "FALSO"
+    | "VERDADERO"
+
 ;
 
 export interface Token {

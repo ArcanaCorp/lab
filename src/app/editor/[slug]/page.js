@@ -76,6 +76,20 @@ export default function EditorPage({ params }) {
         setExecutionState(state);
     }
 
+    function handleInput(value) {
+        if (!execution) {
+            return;
+        }
+
+        const state = execution.provideInput(value);
+
+        setExecutionState(state);
+
+        const finalState = execution.run();
+
+        setExecutionState(finalState);
+    }
+
     return (
         <>
             <HeaderEditor
@@ -89,6 +103,7 @@ export default function EditorPage({ params }) {
                 setSource={setSource}
                 executionState={executionState}
                 onRun={handleRun}
+                onInput={handleInput}
             />
         </>
     );

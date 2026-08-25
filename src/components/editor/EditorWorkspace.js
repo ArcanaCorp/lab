@@ -7,7 +7,7 @@ import FlowchartViewer from "./FlowchartViewer";
 import CodeViewer from "./CodeViewer";
 import BottomPanel from "./BottomPanel";
 
-export default function EditorWorkspace({ algorithm, source, setSource, executionState }) {
+export default function EditorWorkspace({ algorithm, source, setSource, executionState, onInput }) {
 
     const [activeView, setActiveView] = useState("pseudocode");
     const [activePanel, setActivePanel] = useState("terminal");
@@ -33,7 +33,7 @@ export default function EditorWorkspace({ algorithm, source, setSource, executio
 
             </div>
 
-            <BottomPanel activePanel={activePanel} setActivePanel={setActivePanel} executionState={executionState} diagnostics={analysis.diagnostics} />
+            <BottomPanel activePanel={activePanel} setActivePanel={setActivePanel} executionState={executionState} onInput={onInput} diagnostics={analysis.diagnostics} />
 
         </main>
     );

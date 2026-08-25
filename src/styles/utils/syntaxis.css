@@ -1,0 +1,49 @@
+.syntax-highlight,
+.syntax-input {
+    position: absolute;
+    inset: 0;
+
+    margin: 0;
+
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    overflow: auto;
+}
+
+.syntax-highlight {
+    pointer-events: none;
+    background: white;
+}
+
+.syntax-input {
+    background: transparent;
+    color: transparent;
+    caret-color: black;
+
+    border: none;
+    outline: none;
+
+    resize: none;
+}
+
+.syntax-input::selection {
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.syntax-keyword {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.syntax-string {
+    color: #16a34a;
+}
+
+.syntax-number {
+    color: #2563eb;
+}
