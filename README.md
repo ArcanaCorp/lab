@@ -838,8 +838,3 @@ AST
 AlgLab busca convertirse en una herramienta visual para aprender los fundamentos de programación utilizando pseudocódigo.
 
 La ejecución paso a paso, la entrada interactiva, el estado de variables, los diagnósticos, la generación de código y el flujograma están orientados a que el usuario pueda observar no solamente **qué resultado produce un algoritmo**, sino también **cómo se ejecuta**.
-
-```
-
-Esta versión representa bastante mejor el proyecto actual: **qué es, qué hace, cómo está organizado y cómo fluye un algoritmo desde el pseudocódigo hasta la ejecución/visualización**, dejando la instalación y los comandos como algo secundario.
-```

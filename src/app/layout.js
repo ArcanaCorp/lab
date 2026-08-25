@@ -8,7 +8,7 @@ const googleSansCode = Google_Sans_Code({
 });
 
 export const metadata = {
-    metadataBase: new URL('https://alglab.dev'),
+    metadataBase: new URL('https://alglab.arcanacorp.dev'),
     title: {
         default: 'AlgLab | Aprende y practica algoritmos',
         template: '%s | AlgLab',
@@ -43,7 +43,7 @@ export const metadata = {
     openGraph: {
         type: 'website',
         locale: 'es_ES',
-        url: 'https://alglab.dev',
+        url: 'https://alglab.arcanacorp.dev',
         siteName: 'AlgLab',
         title: 'AlgLab | Aprende y practica algoritmos',
         description: 'Aprende, escribe y ejecuta algoritmos y pseudocódigo de forma interactiva.',
