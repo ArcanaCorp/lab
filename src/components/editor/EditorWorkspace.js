@@ -47,7 +47,7 @@ export default function EditorWorkspace({ source, setSource, executionState, onI
                 )}
 
                 {activeView === "code" && (
-                    <CodeViewer source={source} />
+                    <CodeViewer program={analysis.program} />
                 )}
 
             </div>

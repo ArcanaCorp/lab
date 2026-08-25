@@ -7,6 +7,8 @@ export * from "./parser";
 
 export * from "./flowchart";
 
+export * from "./codegen";
+
 export * from "./runtime";
 
 export * from "./semantic"

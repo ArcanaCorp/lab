@@ -3,7 +3,15 @@
 import { ReactFlow, Background, Controls, MiniMap } from "@xyflow/react";
 import { flowchartToReactFlow } from "./flowchart-adapter";
 
+import FlowchartNode from "./flowchart/FlowchartNode";
+import DecisionNode from "./flowchart/DecisionNode";
+
 import "@xyflow/react/dist/style.css";
+
+const nodeTypes = {
+    flowchart: FlowchartNode,
+    decision: DecisionNode
+};
 
 export default function FlowchartViewer({ flowchart }) {
 
@@ -24,6 +32,7 @@ export default function FlowchartViewer({ flowchart }) {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                nodeTypes={nodeTypes}
                 fitView
             >
                 <Background />

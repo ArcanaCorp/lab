@@ -44,8 +44,6 @@ export default function Page () {
                     </nav>
                     <div className="h-full flex items-center gap-md">
                         <NewAlgorithmButton/>
-                        <button className="square center" style={{"--square": "40px"}}><IconBell/></button>
-                        <button className="square center" style={{"--square": "40px"}}><IconSettings/></button>
                     </div>
                 </div>
             </header>
