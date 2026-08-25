@@ -1,0 +1,8 @@
+{
+    "name": "AlgLab",
+    "short_name": "AlgLab",
+    "description": "Plataforma interactiva para aprender y practicar algoritmos.",
+    "lang": "es",
+    "start_url": "/",
+    "display": "standalone"
+}

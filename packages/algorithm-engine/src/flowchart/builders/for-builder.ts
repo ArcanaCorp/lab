@@ -1,26 +1,39 @@
-import type { ForStatement } from "../../ast";
+import type { ForStatement, Statement } from "../../ast";
 import type {
     FlowchartBuilderContext,
     FlowchartFragment
 } from "./statement-builder";
+import { formatExpression } from "../expression-label";
 
 export function buildForStatement(
     statement: ForStatement,
     context: FlowchartBuilderContext,
     buildStatement: (
-        statement: any,
+        statement: Statement,
         context: FlowchartBuilderContext
     ) => FlowchartFragment
-) : FlowchartFragment {
+): FlowchartFragment {
+
+    /*
+     * =========================
+     * INICIALIZACIÓN
+     * =========================
+     */
 
     const initialization = context.addNode(
         "process",
-        `${statement.variable} <- ...`
+        `${statement.variable} <- ${formatExpression(statement.start)}`
     );
+
+    /*
+     * =========================
+     * CONDICIÓN
+     * =========================
+     */
 
     const condition = context.addNode(
         "decision",
-        `${statement.variable} <= ...`
+        `${statement.variable} <= ${formatExpression(statement.end)}`
     );
 
     context.connect(
@@ -28,35 +41,95 @@ export function buildForStatement(
         condition
     );
 
-    const bodyEntry = context.addNode(
-        "process",
-        "..."
-    );
+    /*
+     * =========================
+     * CUERPO DEL PARA
+     * =========================
+     */
 
-    context.connect(
-        condition,
-        bodyEntry,
-        "Sí"
-    );
+    let bodyEntry: string | undefined;
+    let bodyExit: string | undefined;
+
+    for (const child of statement.body) {
+
+        const fragment = buildStatement(
+            child,
+            context
+        );
+
+        if (!bodyEntry) {
+            bodyEntry = fragment.entry;
+
+            context.connect(
+                condition,
+                fragment.entry,
+                "Sí"
+            );
+        } else {
+            context.connect(
+                bodyExit!,
+                fragment.entry
+            );
+        }
+
+        bodyExit = fragment.exit;
+    }
+
+    /*
+     * =========================
+     * INCREMENTO
+     * =========================
+     */
 
     const increment = context.addNode(
         "process",
-        `${statement.variable} <- ${statement.variable} + ...`
+        `${statement.variable} <- ${statement.variable} + ${formatExpression(statement.step)}`
     );
 
-    context.connect(
-        bodyEntry,
-        increment
-    );
+    /*
+     * Si el Para tiene cuerpo:
+     *
+     * condición
+     *      ↓ Sí
+     *    cuerpo
+     *      ↓
+     * incremento
+     *      ↓
+     * condición
+     */
+
+    if (bodyExit) {
+        context.connect(
+            bodyExit,
+            increment
+        );
+    } else {
+        /*
+         * Para vacío:
+         *
+         * condición → incremento
+         */
+        context.connect(
+            condition,
+            increment,
+            "Sí"
+        );
+    }
 
     context.connect(
         increment,
         condition
     );
 
+    /*
+     * =========================
+     * SALIDA
+     * =========================
+     */
+
     const exit = context.addNode(
-        "process",
-        "Continuar"
+        "merge",
+        ""
     );
 
     context.connect(

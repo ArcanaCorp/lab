@@ -1,19 +1,9 @@
 import { highlightCode } from "./SyntaxHighlight";
 
-export default function PseudocodeEditor({
-    value,
-    onChange,
-    executionState
-}) {
+export default function PseudocodeEditor({ value, onChange, executionState }) {
+    
     return (
-        <div
-            className="w-full h-full rounded-md border border-solid border-gray-100"
-            style={{
-                overflow: "hidden",
-                position: "relative"
-            }}
-            aria-label="Pseudocódigo"
-        >
+        <div className="w-full h-full rounded-md border border-solid border-gray-100" style={{overflow: "hidden", position: "relative"}} aria-label="Pseudocódigo" >
 
             <pre
                 aria-hidden="true"

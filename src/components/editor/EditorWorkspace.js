@@ -6,13 +6,32 @@ import PseudocodeEditor from "./PseudocodeEditor";
 import FlowchartViewer from "./FlowchartViewer";
 import CodeViewer from "./CodeViewer";
 import BottomPanel from "./BottomPanel";
+import { useEditor } from "../../context/EditorContext";
+import { buildFlowchart } from "../../../packages/algorithm-engine";
 
-export default function EditorWorkspace({ algorithm, source, setSource, executionState, onInput }) {
+export default function EditorWorkspace({ source, setSource, executionState, onInput }) {
 
-    const [activeView, setActiveView] = useState("pseudocode");
-    const [activePanel, setActivePanel] = useState("terminal");
+    const { activeView, activePanel, setActivePanel } = useEditor();
 
     const analysis = useMemo(() => analyzeCode(source), [source]);
+
+    const flowchart = useMemo(() => {
+
+        if (!analysis.program) {
+            return null;
+        }
+
+        if (
+            analysis.diagnostics.some(
+                diagnostic => diagnostic.severity === "error"
+            )
+        ) {
+            return null;
+        }
+
+        return buildFlowchart(analysis.program);
+
+    }, [analysis]);
 
     return (
         <main className="w-full h" style={{"--h": "calc(100dvh - 60px)", overflow: 'hidden'}}>
@@ -24,7 +43,7 @@ export default function EditorWorkspace({ algorithm, source, setSource, executio
                 )}
 
                 {activeView === "flowchart" && (
-                    <FlowchartViewer source={source} executionState={executionState} />
+                    <FlowchartViewer flowchart={flowchart} executionState={executionState} />
                 )}
 
                 {activeView === "code" && (

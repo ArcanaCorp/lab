@@ -13,35 +13,31 @@ export const EditorProvider = ({ children, slug }) => {
     const [editingTitle, setEditingTitle] = useState(false);
     const [title, setTitle] = useState("");
 
-    /*
-     * =========================
-     * LOAD ALGORITHM
-     * Algoritmo Hola
-
- Escribir "Hola mundo"
-
-FinAlgoritmo
-     * =========================
-     */
+    const [activeView, setActiveView] = useState("pseudocode");
+    const [activePanel, setActivePanel] = useState("terminal");
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (!slug) {
+        const load = async () => {
+            try {
+                if (!slug) {
+                    setLoading(false);
+                    return;
+                }
+                const data = getAlgorithmBySlug(slug);
+
+                if (data) {
+                    setAlgorithm(data);
+                    setTitle(data.title || "");
+                }
+            } catch (error) {
+                console.error("Error al cargar el algoritmo:", error);
+            } finally {
                 setLoading(false);
-                return;
             }
+        }
+        
+        load();
 
-            const data = getAlgorithmBySlug(slug);
-
-            if (data) {
-                setAlgorithm(data);
-                setTitle(data.title || "");
-            }
-
-            setLoading(false);
-        }, 0);
-
-        return () => clearTimeout(timer);
     }, [slug]);
 
 
@@ -133,6 +129,27 @@ FinAlgoritmo
 
     }, [algorithm]);
 
+    const updateSource = useCallback((source) => {
+
+        if (!algorithm) {
+            return null;
+        }
+
+        const updated = updateAlgorithm(
+            algorithm.slug,
+            {
+                source
+            }
+        );
+
+        if (updated) {
+            setAlgorithm(updated);
+        }
+
+        return updated;
+
+    }, [algorithm]);
+
 
     /*
      * =========================
@@ -157,6 +174,14 @@ FinAlgoritmo
         // Algorithm
         update,
         setAlgorithm,
+        updateSource,
+
+        // Views
+        activeView,
+        setActiveView,
+        activePanel,
+        setActivePanel
+
     };
 
 

@@ -1,16 +1,16 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { getAlgorithmBySlug } from "../../../lib/algorithms";
 import { analyzeCode } from "../../../lib/algorithm/analyze-code";
 import { Execution } from "@lab/algorithm-engine";
 
 import HeaderEditor from "../../../components/HeaderEditor";
 import EditorWorkspace from "../../../components/editor/EditorWorkspace";
+import { useEditor } from "../../../context/EditorContext";
 
 export default function EditorPage({ params }) {
 
-    const [algorithm, setAlgorithm] = useState(null);
+    const { algorithm, loading, updateSource, activeView, setActiveView } = useEditor();
 
     const [source, setSource] = useState("");
 
@@ -23,31 +23,10 @@ export default function EditorPage({ params }) {
         output: []
     });
 
-    useEffect(() => {
-        async function load() {
-            const { slug } = await params;
-
-            const data = getAlgorithmBySlug(slug);
-
-            setAlgorithm(data);
-            setSource(data?.source ?? "");
-        }
-
-        load();
-    }, [params]);
-
-    if (!algorithm) {
-        return <div>Algoritmo no encontrado.</div>;
-    }
 
     function handleRun() {
 
-        console.log("RUN");
-        console.log("SOURCE:", source);
-
         const result = analyzeCode(source);
-
-        console.log("ANALYSIS:", result);
 
         if (!result.program) {
             console.log("No existe programa");
@@ -63,15 +42,11 @@ export default function EditorPage({ params }) {
             return;
         }
 
-        console.log("Programa válido");
-
         const newExecution = new Execution(result.program);
 
         setExecution(newExecution);
 
         const state = newExecution.run();
-
-        console.log("EXECUTION STATE:", state);
 
         setExecutionState(state);
     }
@@ -90,17 +65,42 @@ export default function EditorPage({ params }) {
         setExecutionState(finalState);
     }
 
+    const handleSourceChange = (newSource) => {
+        setSource(newSource);
+        updateSource(newSource);
+    }
+
+    useEffect(() => {
+
+        if (!algorithm) {
+            return;
+        }
+
+        setSource(algorithm.source ?? "");
+
+    }, [algorithm]);
+
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
+
+    if (!algorithm) {
+        return <div>Algoritmo no encontrado.</div>;
+    }
+
     return (
         <>
             <HeaderEditor
                 algorithm={algorithm}
+                activeView={activeView}
+                setActiveView={setActiveView}
                 onRun={handleRun}
             />
 
             <EditorWorkspace
                 algorithm={algorithm}
                 source={source}
-                setSource={setSource}
+                setSource={handleSourceChange}
                 executionState={executionState}
                 onRun={handleRun}
                 onInput={handleInput}
