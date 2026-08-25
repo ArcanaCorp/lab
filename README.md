@@ -1,8 +1,3 @@
-Claro. Por lo que hemos construido ahora, el README debería funcionar más como **documentación del proyecto y su funcionamiento**, no como una guía de instalación. Además, ya tenemos varias piezas nuevas: editor, análisis, AST, ejecución interactiva con `Leer`, variables, ciclos con frames, terminal, errores, consola, visualización de código generado y flujograma.
-
-Te propongo este README:
-
-````md
 # AlgLab
 
 AlgLab es un entorno web educativo para escribir, analizar y ejecutar algoritmos mediante pseudocódigo en español.
