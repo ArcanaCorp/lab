@@ -2,6 +2,7 @@ import { EditorProvider } from "../../../context/EditorContext";
 import { getAlgorithmBySlug } from "../../../lib/algorithms";
 
 export async function generateMetadata({ params }) {
+
     const { slug } = await params;
 
     if (!slug) {
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }) {
         };
     }
 
-    const algorithm = getAlgorithmBySlug(slug);
+    const algorithm = await getAlgorithmBySlug(slug);
 
     if (!algorithm) {
         return {
-            title: "Algoritmo no encontrado | Editor | AlgLab",
+            title: "Editor | AlgLab",
             description: "El algoritmo solicitado no existe en AlgLab.",
         };
     }

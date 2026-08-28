@@ -8,8 +8,6 @@ export default async function EditorLayout ({ children, params }) {
     
     const { slug } = await params;
 
-    console.log("EditorLayout slug:", slug);
-
     return (
         <EditorProvider slug={slug}>
             {children}

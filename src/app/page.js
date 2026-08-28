@@ -1,6 +1,17 @@
+'use client';
 import Link from "next/link";
+import { useAnalysis } from "../context/AnalysisContext";
 
 export default function Page () {
+
+    const { trackEvent } = useAnalysis();
+
+    const handleOpenPage = async (type, elementId) => {
+        await trackEvent("navigation_clicked", {
+            elementType: type,
+            elementId: elementId,
+        })
+    }
 
     return (
         <>
@@ -8,10 +19,10 @@ export default function Page () {
                 <div className="w m-auto h-full flex items-center justify-between" style={{ "--w": "90%" }}>
                     <nav className="h-full flex items-center gap-md">
                         <Link href="/" className="text-3xl text-dark fw-bold">AlgLab</Link>
-                        <Link href="/docs" className="text-gray">Documentación</Link>
+                        <Link href="/docs" className="text-gray" onClick={() => handleOpenPage('link', 'docs-link')}>Documentación</Link>
                     </nav>
 
-                    <Link href="/app" className="btn btn-primary">Comenzar</Link>
+                    <Link href="/app" className="btn btn-primary" onClick={() => handleOpenPage('link', 'app-link')}>Comenzar</Link>
                 </div>
             </header>
 
@@ -157,8 +168,8 @@ export default function Page () {
                         <p className="text-sm mt-sm text-gray">Donde aprender algoritmos se convierte en programar.</p>
                     </div>
                     <div className="flex gap-md">
-                        <Link href="/docs" className="text-gray">Documentación</Link>
-                        <Link href="https://github.com/ArcanaCorp/lab" className="text-gray" target="_blank" >GitHub</Link>
+                        <Link href="/docs" className="text-gray" onClick={() => handleOpenPage('link', 'docs-link')}>Documentación</Link>
+                        <Link href="https://github.com/ArcanaCorp/lab" className="text-gray" target="_blank" onClick={() => handleOpenPage('link', 'github-link')}>GitHub</Link>
                     </div>
                 </div>
             </footer>

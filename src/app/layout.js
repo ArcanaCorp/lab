@@ -1,5 +1,8 @@
 import { Google_Sans_Code, Google_Sans } from 'next/font/google';
 import '../styles/globals.css';
+import { AnalysisProvider } from '../context/AnalysisContext';
+import { Toaster } from 'sonner';
+import AnalyticsTracker from '../components/AnalyticsTracker';
 
 const googleSans = Google_Sans({
     subsets: ['latin'],
@@ -85,7 +88,11 @@ export default function RootLayout({ children }) {
     return (
         <html lang="es" className={googleSans.variable} data-scroll-behavior="smooth">
             <body>
-                {children}
+                <AnalysisProvider>
+                    <AnalyticsTracker/>
+                    {children}
+                    <Toaster position='top-center' duration={5000} closeButton />
+                </AnalysisProvider>
             </body>
         </html>
     );

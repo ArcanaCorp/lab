@@ -4,13 +4,17 @@ import { IconPlus, IconShare3 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createAlgorithm, getAlgorithms, deleteAlgorithm } from "../../lib/algorithms";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AlgorithmCard from "../../components/AlgorithmCard";
+import { useAnalysis } from "../../context/AnalysisContext";
+import { toast } from "sonner";
 
 export default function Page () {
 
     const router = useRouter();
+    const pathname = usePathname();
 
+    const { createShareLink, trackEvent } = useAnalysis();
     const [algorithms, setAlgorithms] = useState([]);
     
     useEffect(() => {
@@ -29,14 +33,55 @@ export default function Page () {
 
     }, []);
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
         const algorithm = createAlgorithm();
+        await trackEvent("algorithm_created", {
+            elementType: "button",
+            elementId: "create-algorithm",
+            elementText: "Nuevo Proyecto",
+            metadata: {
+                projectId: algorithm.slug,
+                resourceType: "algorithm",
+                resourceId: algorithm.slug,
+                sourcePath: pathname,
+            },
+        });
         router.push(`/editor/${algorithm.slug}`);
     }
 
-    const handleDelete = (slug) => {
+    const handleDelete =  async (slug, alg) => {
         deleteAlgorithm(slug);
         setAlgorithms((current) => current.filter((algorithm) => algorithm.slug !== slug));
+        await trackEvent("algorithm_deleted", {
+            elementType: "button",
+            elementId: "delete-algorithm",
+            elementText: "Eliminar algoritmo",
+            metadata: {
+                algorithmId: alg.id,
+            },
+        });
+    };
+
+    const handleShare = async () => {
+        try {
+            const result = await createShareLink({resourceType: "page", resourceId: pathname});
+            if (!result?.url || !result?.share) return;
+            await navigator.clipboard.writeText(result.url);
+            trackEvent("share_copied", {
+                elementType: "button",
+                elementId: "share-button",
+                metadata: {
+                    shareId:result.share.id,
+                    shortCode:result.share.short_code,
+                    resourceType: "page",
+                    resourceId: pathname,
+                },
+            });
+            toast.success('Enlace copiado correctamente.')
+        } catch (error) {
+            console.error("Error compartiendo página:", error);
+            toast.error('Error', { description: 'Hubo un error al compartir. Inténtalo de nuevo.' })
+        }
     };
 
     return (
@@ -48,7 +93,7 @@ export default function Page () {
                         <span className="text-sm bg-dark-secondary py-sm px-md border-bottom rounded-full">Preview</span>
                     </div>
                     <div>
-                        <button className="btn btn-ghos border-bottom bg-dark-secondary text-white"><IconShare3/> Compartir</button>
+                        <button className="btn btn-ghos border-bottom bg-dark-secondary text-white" onClick={() => handleShare()}><IconShare3/> Compartir</button>
                     </div>
                 </div>
             </header>

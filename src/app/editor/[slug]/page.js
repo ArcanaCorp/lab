@@ -12,6 +12,8 @@ export default function EditorPage({ params }) {
 
     const { algorithm, loading, updateSource, activeView, setActiveView } = useEditor();
 
+    console.log(algorithm);
+
     const [source, setSource] = useState("");
 
     const [execution, setExecution] = useState(null);
@@ -33,14 +35,7 @@ export default function EditorPage({ params }) {
             return;
         }
 
-        if (
-            result.diagnostics.some(
-                diagnostic => diagnostic.severity === "error"
-            )
-        ) {
-            console.log("Hay errores de análisis");
-            return;
-        }
+        if (result.diagnostics.some(diagnostic => diagnostic.severity === "error")) return console.log("Hay errores de análisis");
 
         const newExecution = new Execution(result.program);
 
@@ -72,9 +67,7 @@ export default function EditorPage({ params }) {
 
     useEffect(() => {
 
-        if (!algorithm) {
-            return;
-        }
+        if (!algorithm) return;
 
         setSource(algorithm.source ?? "");
 

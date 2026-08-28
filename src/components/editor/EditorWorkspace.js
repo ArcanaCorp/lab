@@ -17,17 +17,9 @@ export default function EditorWorkspace({ source, setSource, executionState, onI
 
     const flowchart = useMemo(() => {
 
-        if (!analysis.program) {
-            return null;
-        }
+        if (!analysis.program) return null;
 
-        if (
-            analysis.diagnostics.some(
-                diagnostic => diagnostic.severity === "error"
-            )
-        ) {
-            return null;
-        }
+        if (analysis.diagnostics.some(diagnostic => diagnostic.severity === "error")) return null;
 
         return buildFlowchart(analysis.program);
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { getAlgorithmBySlug, updateAlgorithm } from "../lib/algorithms";
+import { getAlgorithmBySlug, updateAlgorithm, saveAlgorithm } from "../lib/algorithms";
+import { createClient } from "../lib/supabase/client";
 
 const EditorContext = createContext(null);
 
@@ -18,28 +19,130 @@ export const EditorProvider = ({ children, slug }) => {
     const [minimized, setMinimized] = useState(false);
 
     useEffect(() => {
+        let cancelled = false;
+
         const load = async () => {
             try {
-                if (!slug) {
-                    setLoading(false);
-                    return;
-                }
-                const data = getAlgorithmBySlug(slug);
 
-                if (data) {
-                    setAlgorithm(data);
-                    setTitle(data.title || "");
-                }
+                if (!slug) return;
+
+                const data = await getAlgorithmBySlug(slug);
+
+                if (cancelled) return;
+
+                if (!data) return console.warn("Proyecto no encontrado:", slug);
+
+                setAlgorithm(data);
+                setTitle(data.title || "");
+
             } catch (error) {
-                console.error("Error al cargar el algoritmo:", error);
+                if (!cancelled) {
+                    console.error("Error al cargar el algoritmo:", error);
+                }
             } finally {
-                setLoading(false);
+                if (!cancelled) {
+                    setLoading(false);
+                }
             }
-        }
-        
+        };
+
         load();
 
+        return () => {
+            cancelled = true;
+        };
+
     }, [slug]);
+
+    useEffect(() => {
+        if (!algorithm?.slug || !algorithm?.isSynced) {
+            return;
+        }
+
+        const supabase = createClient();
+
+        const channel = supabase
+            .channel(`project:${algorithm.slug}`)
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE",
+                    schema: "public",
+                    table: "projects",
+                    filter: `slug=eq.${algorithm.slug}`,
+                },
+                (payload) => {
+                    const project = payload.new;
+
+                    console.log(
+                        "Proyecto actualizado desde Realtime:",
+                        project
+                    );
+
+                    const cloudUpdated = new Date(
+                        project.updated_at
+                    ).getTime();
+
+                    const localUpdated = new Date(
+                        algorithm.updated
+                    ).getTime();
+
+                    /*
+                    * Si la nube no es más reciente,
+                    * no hacemos nada.
+                    */
+
+                    if (cloudUpdated <= localUpdated) {
+                        return;
+                    }
+
+                    const updatedAlgorithm = {
+                        ...algorithm,
+
+                        slug: project.slug,
+                        title: project.title || "",
+                        source: project.source || "",
+
+                        version: project.version,
+
+                        isSynced: true,
+                        isPublic: project.is_public ?? false,
+
+                        created: project.created_at,
+                        updated: project.updated_at,
+                    };
+
+                    console.log(
+                        "Aplicando actualización remota:",
+                        updatedAlgorithm
+                    );
+
+                    /*
+                    * Guardar en local
+                    */
+
+                    saveAlgorithm(updatedAlgorithm);
+
+                    /*
+                    * Actualizar React
+                    */
+
+                    setAlgorithm(updatedAlgorithm);
+                    setTitle(updatedAlgorithm.title || "");
+                }
+            )
+            .subscribe((status) => {
+                console.log(
+                    `Realtime project ${algorithm.slug}:`,
+                    status
+                );
+            });
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+
+    }, [algorithm?.slug, algorithm?.isSynced]);
 
 
     /*
@@ -136,12 +239,7 @@ export const EditorProvider = ({ children, slug }) => {
             return null;
         }
 
-        const updated = updateAlgorithm(
-            algorithm.slug,
-            {
-                source
-            }
-        );
+        const updated = updateAlgorithm(algorithm.slug, { source });
 
         if (updated) {
             setAlgorithm(updated);
