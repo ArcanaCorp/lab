@@ -3,11 +3,7 @@
 import { useRef } from "react";
 import { highlightCode } from "./SyntaxHighlight";
 
-export default function PseudocodeEditor({
-    value,
-    onChange,
-    executionState
-}) {
+export default function PseudocodeEditor({ value, onChange, executionState }) {
 
     const highlightRef = useRef(null);
 
@@ -21,33 +17,11 @@ export default function PseudocodeEditor({
     }
 
     return (
-        <div
-            className="w-full h-full rounded-md border border-solid border-gray-100"
-            style={{
-                overflow: "hidden",
-                position: "relative"
-            }}
-            aria-label="Pseudocódigo"
-        >
+        <div className="w-full h-full rounded-md bg-dark-secondary" style={{overflow: "hidden", position: "relative"}} aria-label="Pseudocódigo">
 
-            <pre
-                ref={highlightRef}
-                aria-hidden="true"
-                className="syntax-highlight w-full h-full p-md"
-                dangerouslySetInnerHTML={{
-                    __html: highlightCode(value)
-                }}
-            />
+            <pre ref={highlightRef} aria-hidden="true" className="syntax-highlight w-full h-full p-md" dangerouslySetInnerHTML={{__html: highlightCode(value)}} />
 
-            <textarea
-                value={value}
-                onChange={(event) => {
-                    onChange(event.target.value);
-                }}
-                onScroll={handleScroll}
-                className="syntax-input w-full h-full resize-none p-md"
-                spellCheck={false}
-            />
+            <textarea value={value} onChange={(event) => { onChange(event.target.value) }} onScroll={handleScroll} className="syntax-input w-full h-full resize-none p-md" spellCheck={false} />
 
         </div>
     );

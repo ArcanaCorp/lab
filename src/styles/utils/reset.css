@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-google-sans-code);
+    font-family: var(--font-google-sans);
 }
 
 html {
@@ -14,16 +14,23 @@ body {
     height: 100dvh;
     overflow-y: auto;
     overflow-x: hidden;
-    color: var(--color-dark);
+    color: var(--color-text);
     font-size: var(--text-md);
     font-weight: var(--font-normal);
     line-height: var(--leading-normal);
     background-color: var(--color-bg);
 }
 
+body::-webkit-scrollbar { display: none; }
+
+article {
+    user-select: none;
+}
+
 input, select, textarea {
     outline: none;
     border: none;
+    background: transparent;
 }
 
 ul, li, ol {
@@ -44,4 +51,41 @@ button {
 a {
     color: var(--color-primary);
     text-decoration: none;
+}
+
+dialog:not([open]) {
+    display: none;
+}
+
+.delete-dialog {
+    width: 500px;
+    max-width: 90vw;
+
+    margin: auto;
+    padding: 0;
+
+    border: none;
+    border-radius: var(--radius-lg);
+
+    background: transparent;
+
+    overflow: hidden;
+}
+
+.delete-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.delete-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+
+    padding: var(--space-2xl);
+
+    background-color: var(--color-bg);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
 }

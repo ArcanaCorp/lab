@@ -8,7 +8,15 @@ export function getAlgorithms() {
     try {
         const algorithms = localStorage.getItem(STORAGE_KEY);
 
-        return algorithms ? JSON.parse(algorithms) : [];
+        if (!algorithms) {
+            return [];
+        }
+
+        const parsedAlgorithms = JSON.parse(algorithms);
+
+        return parsedAlgorithms.sort(
+            (a, b) => new Date(b.created) - new Date(a.created)
+        );
     } catch (error) {
         console.error("Error leyendo algoritmos:", error);
         return [];
@@ -74,4 +82,25 @@ export function updateAlgorithm(slug, data) {
     return updatedAlgorithms.find(
         (algorithm) => algorithm.slug === slug
     ) ?? null;
+}
+
+export function deleteAlgorithm(slug) {
+    if (typeof window === "undefined") {
+        return;
+    }
+
+    try {
+        const algorithms = getAlgorithms();
+
+        const filtered = algorithms.filter(
+            (algorithm) => algorithm.slug !== slug
+        );
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(filtered)
+        );
+    } catch (error) {
+        console.error("Error eliminando algoritmo:", error);
+    }
 }

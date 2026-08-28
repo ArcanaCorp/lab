@@ -26,7 +26,7 @@ export default function HeaderEditor({ onRun, activeView, setActiveView }) {
     }
 
     return (
-        <header className="w-full h bg-white border-b" style={{ "--h": "60px" }} >
+        <header className="w-full h bg-dark border-bottom" style={{ "--h": "60px" }} >
 
             <div className="w m-auto h-full flex items-center justify-between" style={{ "--w": "90%" }} >
 
@@ -34,19 +34,13 @@ export default function HeaderEditor({ onRun, activeView, setActiveView }) {
 
                 <div className="flex items-center gap-sm">
 
-                    <button className="square center rounded-sm bg-gray-100" style={{ "--square": "40px" }} onClick={() => router.back()}><IconChevronLeft /></button>
-
+                    <button className="square center rounded-sm bg-dark-secondary text-white" style={{ "--square": "40px" }} onClick={() => router.back()}><IconChevronLeft /></button>
                     {editingTitle ? (
-
-                        <input ref={inputRef} type="text" value={title} onChange={(event) => handleTitleChange(event.target.value)} onBlur={saveTitle} onKeyDown={handleTitleKeyDown} placeholder="Sin título" className="border border-solid border-gray px-sm" />
-
+                        <input ref={inputRef} type="text" value={title} onChange={(event) => handleTitleChange(event.target.value)} onBlur={saveTitle} onKeyDown={handleTitleKeyDown} placeholder="Sin título" className="px-sm py-md bg-dark-secondary text-white rounded-md" />
                     ) : (
-
                         <h1 onClick={startEditingTitle} className="text-lg fw-semibold pointer" title="Haz clic para editar" >{algorithm.title || "Sin título"}</h1>
-
                     )}
-
-                    <p className="bg-mariner-50 text-xs p-sm rounded-sm">Guardado localmente</p>
+                    <p className="text-xs bg-dark-secondary py-xs px-sm border-bottom rounded-full">Guardado localmente</p>
 
                 </div>
 
@@ -55,10 +49,10 @@ export default function HeaderEditor({ onRun, activeView, setActiveView }) {
 
                 <div className="flex items-center gap-md">
 
-                    <button className="py-sm px-md rounded-md bg-gray-100" onClick={() => router.push("/docs")}>Docs</button>
-                    <button className={`py-sm px-md rounded-md ${activeView === "pseudocode" ? "bg-primary text-white" : "bg-gray-100"}`} onClick={() => setActiveView("pseudocode")}>Pseudocódigo</button>
-                    <button className={`py-sm px-md rounded-md ${activeView === "flowchart" ? "bg-primary text-white" : "bg-gray-100"}`} onClick={() => setActiveView("flowchart")}>Diagrama</button>
-                    <button className={`py-sm px-md rounded-md ${activeView === "code" ? "bg-primary text-white" : "bg-gray-100"}`} onClick={() => setActiveView("code")}>Código</button>
+                    <button className="btn bg-dark-secondary btn-sm text-white" onClick={() => router.push("/docs")}>Docs</button>
+                    <button className={`btn btn-sm ${activeView === "pseudocode" ? "bg-primary" : "bg-dark-secondary text-white"}`} onClick={() => setActiveView("pseudocode")}>Pseudocódigo</button>
+                    <button className={`btn btn-sm ${activeView === "flowchart" ? "bg-primary" : "bg-dark-secondary text-white"}`} onClick={() => setActiveView("flowchart")}>Diagrama</button>
+                    <button className={`btn btn-sm ${activeView === "code" ? "bg-primary" : "bg-dark-secondary text-white"}`} onClick={() => setActiveView("code")}>Código</button>
 
                 </div>
 
@@ -66,45 +60,7 @@ export default function HeaderEditor({ onRun, activeView, setActiveView }) {
                 {/* DERECHA */}
 
                 <div className="flex items-center gap-sm">
-
-                    <button
-                        className="square center rounded-sm bg-gray-100"
-                        style={{ "--square": "40px" }}
-                    >
-                        <IconReload />
-                    </button>
-
-                    <button
-                        className="square center rounded-sm bg-gray-100"
-                        style={{ "--square": "40px" }}
-                    >
-                        <IconDeviceFloppy />
-                    </button>
-
-                    <button
-                        className="square center rounded-sm bg-gray-100"
-                        style={{ "--square": "40px" }}
-                    >
-                        <IconSettings />
-                    </button>
-
-                    <button
-                        className="h px-md bg-gray-100 rounded-sm flex items-center gap-sm"
-                        style={{ "--h": "40px" }}
-                    >
-                        <IconPlayerPause />
-                        Pausar
-                    </button>
-
-                    <button
-                        className="h px-md bg-primary rounded-sm text-white flex items-center gap-sm"
-                        style={{ "--h": "40px" }}
-                        onClick={onRun}
-                    >
-                        <IconPlayerPlay />
-                        Run
-                    </button>
-
+                    <button className="btn btn-primary btn-sm" onClick={onRun}><IconPlayerPlay fill="#000" />Run </button>
                 </div>
 
             </div>

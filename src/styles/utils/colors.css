@@ -36,8 +36,13 @@
 
 .bg-white { background-color: var(--color-white); }
 .bg-black { background-color: var(--color-black); }
-.bg-dark  { background-color: var(--color-dark); }
+.bg-dark  { background-color: var(--color-black); }
 .bg-gray  { background-color: var(--color-gray); }
+
+.bg-dark-secondary { background-color: #111111 }
+.bg-dark-20 { background-color: rgba(0, 0, 0, .2); }
+
+.bg-blue-50 { background-color: rgb(50, 64, 255, .2); }
 
 
 /* =========================================
@@ -58,20 +63,6 @@
 .text-mariner-900 { color: var(--mariner-900); }
 .text-mariner-950 { color: var(--mariner-950); }
 
-
-/* Gray */
-
-.text-gray-100 { color: var(--color-gray-100); }
-.text-gray-200 { color: var(--color-gray-200); }
-.text-gray-300 { color: var(--color-gray-300); }
-.text-gray-400 { color: var(--color-gray-400); }
-.text-gray-500 { color: var(--color-gray-500); }
-.text-gray-600 { color: var(--color-gray-600); }
-.text-gray-700 { color: var(--color-gray-700); }
-
-
-/* Semantic */
-
 .text-primary       { color: var(--color-primary); }
 .text-primary-light { color: var(--color-primary-light); }
 .text-primary-dark  { color: var(--color-primary-dark); }
@@ -80,6 +71,26 @@
 .text-black { color: var(--color-black); }
 .text-dark  { color: var(--color-dark); }
 .text-gray  { color: var(--color-gray); }
+.text-error  { color: var(--color-error); }
+
+.text-gray-800 { color: #888888; }
+
+.text-gradient-capra {
+   background: linear-gradient(
+      to right,
+      var(--capra-ramp-1),
+      var(--capra-ramp-2),
+      var(--capra-ramp-3),
+      var(--capra-ramp-4),
+      var(--capra-ramp-5)
+   );
+
+   -webkit-background-clip: text;
+   background-clip: text;
+
+   -webkit-text-fill-color: transparent;
+   color: transparent;
+}
 
 
 /* =========================================
@@ -169,3 +180,12 @@
 .stroke-black { stroke: var(--color-black); }
 .stroke-dark { stroke: var(--color-dark); }
 .stroke-gray { stroke: var(--color-gray); }
+
+/* =========================================
+   BLUR
+   ========================================= */
+
+.blur { backdrop-filter: blur(25px); }
+
+
+.hover\:text-gray:hover { color: var(--color-gray); }

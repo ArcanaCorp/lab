@@ -147,4 +147,6 @@
 .top-0 { top: 0; }
 .right-0 {top: 0;}
 
+.zHeader { z-index: 999; }
+
 .pointer { cursor: pointer; }

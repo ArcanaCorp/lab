@@ -1,9 +1,9 @@
-import { Google_Sans_Code } from 'next/font/google';
+import { Google_Sans_Code, Google_Sans } from 'next/font/google';
 import '../styles/globals.css';
 
-const googleSansCode = Google_Sans_Code({
+const googleSans = Google_Sans({
     subsets: ['latin'],
-    variable: '--font-google-sans-code',
+    variable: '--font-google-sans',
     weight: ['400', '500', '600', '700'],
 });
 
@@ -83,7 +83,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="es" className={googleSansCode.variable} data-scroll-behavior="smooth">
+        <html lang="es" className={googleSans.variable} data-scroll-behavior="smooth">
             <body>
                 {children}
             </body>

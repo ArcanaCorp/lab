@@ -3,10 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
-
-import {
-    generateCode
-} from "@lab/algorithm-engine";
+import { generateCode } from "@lab/algorithm-engine";
 
 const languages = [
     {
@@ -90,43 +87,13 @@ export default function CodeViewer({ program }) {
     return (
         <div className="relative w-full h-full">
 
-            {/* Selector */}
-
-            <div
-                className="absolute z-10"
-                style={{
-                    top: "10px",
-                    right: "100px"
-                }}
-            >
-
-                <button
-                    type="button"
-                    onClick={() => setOpen(!open)}
-                    className="bg-white border border-solid border-gray rounded-sm px-md py-sm shadow-sm"
-                >
-
-                    {
-                        languages.find(
-                            item => item.id === language
-                        )?.label
-                    }
-
-                    <span className="ml-sm">
-                        ▾
-                    </span>
-
+            <div className="absolute z-10" style={{top: "10px", right: "5%"}}>
+                <button type="button" onClick={() => setOpen(!open)} className="btn btn-secondary">
+                    {languages.find(item => item.id === language)?.label}
+                    <span className="ml-sm">▾</span>
                 </button>
-
-
                 {open && (
-                    <div
-                        className="absolute mt-sm bg-white border border-solid border-gray rounded-sm shadow-md min-w-full"
-                        style={{
-                            top: "30px",
-                            right: "0"
-                        }}
-                    >
+                    <div className="absolute mt-sm bg-white border border-solid border-gray rounded-sm shadow-md min-w-full" style={{ top: "30px", right: "0"}}>
 
                         {languages.map(item => (
 
@@ -146,21 +113,12 @@ export default function CodeViewer({ program }) {
 
                     </div>
                 )}
-
             </div>
 
-
-            {/* Código */}
-
-            <div className="w-full h-full overflow-auto bg-white p-lg">
-
+            <div className="w-full h-full overflow-auto bg-dark-secondary rounded-md p-lg">
                 <pre className="text-sm">
-                    <code
-                        ref={codeRef}
-                        className={`language-${language}`}
-                    />
+                    <code ref={codeRef} className={`language-${language}`}/>
                 </pre>
-
             </div>
 
         </div>
